@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+<div class="inner">
+    <a class="navbar-brand pull-left">Beta
+      <img class="pull-left" src="{{ url_for('static', filename='images/bootstrap-solid.svg')}}" width="30" height="30" alt="">
+    </a>
+    <nav class="nav nav-masthead justify-content-center">
+      <a class="nav-link" href="/">Home</a>
+      {% if current_user.is_authenticated %}
+      <a class="nav-link active" href="/dashboard">Dashboard</a>
+      <a class="nav-link" href="/logout">Logout</a>
+      {% else %}
+      <a class="nav-link active" href="/user/add">Signup</a>
+      <a class="nav-link" href="/login">Login</a>
+      {% endif %}
+    </nav>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+{% endfor %}
+
+<link rel="stylesheet" href="{{url_for('static', filename='css/signup.css')}}" />
+
+<div class="form-body">
+    <div class="row">
+        <div class="form-holder">
+            <div class="form-content">
+                <div class="form-items">
+                    <h3>Create a new account</h3>
+                    <p>Fill in the data below.</p>
+                    <form method="POST" class="requires-validation" novalidate>
+
+                        <div class="col-md-12">
+                           <input class="form-control" type="text" name="name" placeholder="Enter Name" required>
+                           <div class="valid-feedback">Username field is valid!</div>
+                           <div class="invalid-feedback">Name field cannot be blank!</div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <input class="form-control" type="text" name="username" placeholder="Enter Username" required>
+                             <div class="valid-feedback">Email field is valid!</div>
+                             <div class="invalid-feedback">Email field cannot be blank!</div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <input class="form-control" type="email" name="email" placeholder="E-mail Address" required>
+                             <div class="valid-feedback">Email field is valid!</div>
+                             <div class="invalid-feedback">Email field cannot be blank!</div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <input class="form-control" type="text" name="favorite_color" placeholder="Favorite Color" required>
+                             <div class="valid-feedback">Password field is valid!</div>
+                             <div class="invalid-feedback">Password field cannot be blank!</div>
+                        </div>
+
+                       <div class="col-md-12">
+                          <input class="form-control" type="password" name="password_hash" placeholder="Password" required>
+                           <div class="valid-feedback">Password field is valid!</div>
+                           <div class="invalid-feedback">Password field cannot be blank!</div>
+                       </div>
+
+                       <div class="col-md-12">
+                        <input class="form-control" type="password" name="password_hash2" placeholder="Re-Enter Password" required>
+                         <div class="valid-feedback">Password field is valid!</div>
+                         <div class="invalid-feedback">Password field cannot be blank!</div>
+                     </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                      <label class="form-check-label">I confirm that all data are correct</label>
+                     <div class="invalid-feedback">Please confirm that the entered data are all correct!</div>
+                    </div>             
+
+                        <div class="form-button mt-3">
+                            <button id="submit" type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="{{url_for('static', filename='js/register.js')}}"></script>
+
+{% endblock %}
